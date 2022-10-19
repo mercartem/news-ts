@@ -89,6 +89,18 @@ module.exports = {
                 type: 'asset/resource',
             },
             {
+              test: /\.(mp3)$/,
+              include: [
+                  path.resolve(__dirname, './src/audio/')
+              ],
+              use: [{
+                  loader: 'file-loader',
+                  options: {
+                      name: 'assets/[name].[ext]',
+                  }
+              }]
+          },
+            {
                 test: /\.m?js$/i,
                 exclude: /(node_modules|bower_components)/,
                 use: {
