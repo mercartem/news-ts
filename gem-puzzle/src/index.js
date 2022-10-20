@@ -21,6 +21,11 @@ const size36 = document.querySelector('.size-6');
 const size49 = document.querySelector('.size-7');
 const size64 = document.querySelector('.size-8');
 const save = document.querySelector('.save');
+const results = document.querySelector('.results');
+const resultsItems = document.querySelectorAll('.results-item');
+const showResults = document.querySelector('.results-table');
+const overlay = document.querySelector('.overlay');
+const win = document.querySelector('.win');
 
 // переменные
 
@@ -35,6 +40,7 @@ const empty = { // пустая ячейка
 };
 let move = 0; // кол-во ходов
 let gameField; // сохраненное игровое поле
+let numbers; // массив чисел
 
 // получаем сохранения
 
@@ -51,6 +57,7 @@ const getLocalStorage = () => {
     empty.left = objStorage.emptyLeft;
     empty.top = objStorage.emptyTop;
     gameField = objStorage.gameField;
+    numbers = objStorage.numbers;
   }
 };
 getLocalStorage();
@@ -76,17 +83,37 @@ function startTime() {
 
 startTime();
 
-// создаем и генерируем ячейки таблицы
+// генерация решаемости
+// если поле нечетное и четное кол-во инверсий - игра решаема
+// если поле четное и четное кол-ов инверсий - игра решаема
+
+function genNumbers() {
+  const arrNumbers = [...Array(sizeOfTable - 1).keys()].map((x) => x + 1).sort(() => Math.random() - 0.5);
+  let inversions = 0;
+  for (let i = 0; i < arrNumbers.length; i++) {
+    for (let j = i - 1; j >= 0; j--) {
+      if (arrNumbers[j] > arrNumbers[i]) {
+        inversions++;
+      }
+    }
+  }
+  if ((inversions % 2 !== 0 && sizeOfTable % 2 !== 0) || (inversions % 2 === 0 && sizeOfTable % 2 === 0)) {
+    return genNumbers();
+  }
+  return arrNumbers;
+}
+
+// создаем ячейки таблицы
 
 function createItems() {
   if (gameField) {
     table.innerHTML = gameField;
   } else {
-    const numbers = [...Array(sizeOfTable - 1).keys()].sort(() => Math.random() - 0.5);
-    for (let i = 1; i <= sizeOfTable - 1; i++) {
+    numbers = [0, ...genNumbers()];
+    for (let i = 0; i < numbers.length; i++) {
       const item = document.createElement('div');
       item.className = 'item';
-      item.innerHTML = numbers[i - 1] + 1;
+      item.innerHTML = numbers[i];
       table.append(item);
       const widthTable = document.querySelector('.table').offsetWidth;
       const heightTable = document.querySelector('.table').offsetHeight;
@@ -115,6 +142,54 @@ audio.addEventListener('click', () => {
   }
 });
 
+// выигрыш и сохранение результата
+
+function showWin() {
+  win.innerHTML = `УРА!<br> Вы решили головоломку за ${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')} и ${move} ходов!`;
+  overlay.classList.add('overlay_active');
+  win.classList.add('win_active');
+  const setLocalStorageResults = () => {
+    let allResults = [];
+    if (localStorage.getItem('savedResults')) {
+      allResults = JSON.parse(localStorage.getItem('savedResults'));
+    }
+    const savedResults = {
+      time: `${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`,
+      move,
+      timeOfMove: (sec + (min * 60) + (hour * 3600)) / move,
+    };
+    allResults.push(savedResults);
+    localStorage.setItem('savedResults', JSON.stringify(allResults));
+  };
+  setLocalStorageResults();
+}
+
+moves.addEventListener('click', showWin);
+
+// получаем топ-10 результатов
+
+const getLocalStorageResults = () => {
+  if (localStorage.getItem('savedResults')) {
+    const objStorage = JSON.parse(localStorage.getItem('savedResults'));
+    objStorage.sort((a, b) => (a.timeOfMove > b.timeOfMove ? 1 : -1));
+    for (let i = 0; i < objStorage.length; i++) {
+      if (i > 9) {
+        break;
+      }
+      resultsItems[i].innerHTML = `<span>${i + 1}</span><span>${objStorage[i].time}</span><span>${objStorage[i].move}</span>`;
+    }
+  }
+  showResults.classList.add('results_active');
+  overlay.classList.add('overlay_active');
+};
+
+results.addEventListener('click', getLocalStorageResults);
+overlay.addEventListener('click', () => {
+  win.classList.remove('win_active');
+  showResults.classList.remove('results_active');
+  overlay.classList.remove('overlay_active');
+});
+
 // перемещение ячеек
 
 let cell = document.querySelectorAll('.item'); // получаем сгенерированную ячейку
@@ -134,11 +209,26 @@ function moveItems(i) {
     cell[i].style.top = `${empty.top}px`;
     empty.left = cellLeft;
     empty.top = cellTop;
+    table.firstChild.style.left = `${empty.left}px`;
+    table.firstChild.style.top = `${empty.top}px`;
     move++;
     moves.innerHTML = `Moves: ${move}`;
+    numbers = numbers.map((x) => {
+      if (x === 0) {
+        return Number(cell[i].innerHTML);
+      }
+      if (x === Number(cell[i].innerHTML)) {
+        return 0;
+      }
+      return x;
+    });
     if (sound === true) {
       const turnOn = new Audio('./assets/sound.mp3');
       turnOn.play();
+    }
+    const winArray = [...Array(sizeOfTable - 1).keys()].map((x) => x + 1);
+    if (JSON.stringify(numbers) === JSON.stringify([...winArray, 0])) {
+      showWin();
     }
   }
 }
@@ -156,7 +246,7 @@ clickItem();
 // перезапуск игры
 
 function restartGame() {
-  localStorage.clear();
+  localStorage.removeItem('savedGame');
   gameField = false;
   table.innerHTML = '';
   createItems();
@@ -213,6 +303,7 @@ const setLocalStorage = () => {
     sizeOfTable,
     emptyLeft: empty.left,
     emptyTop: empty.top,
+    numbers,
   };
   localStorage.setItem('savedGame', JSON.stringify(savedGame));
 };

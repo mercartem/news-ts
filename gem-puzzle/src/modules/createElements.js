@@ -20,11 +20,11 @@ export default function createElements() {
   newGame.innerHTML = 'New game';
   buttons.append(newGame);
 
-  const stop = document.createElement('button');
-  stop.className = 'stop';
-  stop.classList.add('btn');
-  stop.innerHTML = 'Stop';
-  buttons.append(stop);
+  // const stop = document.createElement('button');
+  // stop.className = 'stop';
+  // stop.classList.add('btn');
+  // stop.innerHTML = 'Stop';
+  // buttons.append(stop);
 
   const save = document.createElement('button');
   save.className = 'save';
@@ -106,4 +106,26 @@ export default function createElements() {
   size8.setAttribute('href', '#');
   size8.innerHTML = '8x8';
   otherSize.append(size8);
+
+  const showResults = document.createElement('div');
+  showResults.className = 'results-table';
+  main.append(showResults);
+
+  const titleResults = document.createElement('div');
+  titleResults.className = 'results-title';
+  titleResults.innerHTML = '<span class="results-number">Number</span><span class="results-time">Time</span><span class="results-moves">Moves</span>';
+  showResults.append(titleResults);
+
+  const wrapperResults = document.createElement('div');
+  wrapperResults.className = 'results-wrapper';
+  showResults.append(wrapperResults);
+  wrapperResults.innerHTML = Array(10).fill('<div class="results-item"></div>').join('');
+
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  body.append(overlay);
+
+  const win = document.createElement('div');
+  win.className = 'win';
+  main.append(win);
 }
