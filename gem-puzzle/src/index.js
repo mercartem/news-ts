@@ -167,8 +167,6 @@ function showWin() {
   setLocalStorageResults();
 }
 
-moves.addEventListener('click', showWin);
-
 // получаем топ-10 результатов
 
 const getLocalStorageResults = () => {
