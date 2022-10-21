@@ -9,6 +9,7 @@ import createElements from './modules/createElements';
 // создаем элементы и присваиваем переменным
 
 createElements();
+const body = document.querySelector('body');
 const table = document.querySelector('.table');
 const btnNewGame = document.querySelector('.new-game');
 const time = document.querySelector('.time');
@@ -114,6 +115,7 @@ function createItems() {
       const item = document.createElement('div');
       item.className = 'item';
       item.innerHTML = numbers[i];
+      item.setAttribute('id', i);
       table.append(item);
       const widthTable = document.querySelector('.table').offsetWidth;
       const heightTable = document.querySelector('.table').offsetHeight;
@@ -124,6 +126,7 @@ function createItems() {
       const top = (i - left) / Math.sqrt(sizeOfTable);
       item.style.left = `${left * width}px`;
       item.style.top = `${top * width}px`;
+      item.setAttribute('draggable', 'true');
     }
   }
 }
@@ -233,15 +236,39 @@ function moveItems(i) {
   }
 }
 
+// Click
+
 function clickItem() {
   for (let i = 0; i < cell.length; i++) {
-    cell[i].addEventListener('click', () => {
+    cell[i].addEventListener('click', (event) => {
+      event.stopImmediatePropagation();
       moveItems(i);
     });
   }
 }
 
 clickItem();
+
+// drag & drop
+
+function drag() {
+  for (let i = 0; i < cell.length; i++) {
+    cell[i].addEventListener('dragstart', (event) => {
+      event.stopImmediatePropagation();
+      event.dataTransfer.setData('id', event.target.id);
+    });
+  }
+  body.addEventListener('dragover', (event) => {
+    event.preventDefault();
+  });
+  body.addEventListener('drop', (event) => {
+    event.stopImmediatePropagation();
+    const itemId = event.dataTransfer.getData('id');
+    table.append(document.getElementById(itemId));
+    moveItems(itemId);
+  });
+}
+drag();
 
 // перезапуск игры
 
@@ -254,6 +281,7 @@ function restartGame() {
   empty.left = 0;
   empty.top = 0;
   clickItem();
+  drag();
   time.innerHTML = '00:00:00';
   moves.innerHTML = 'Moves: 0';
   sec = 0;
@@ -274,21 +302,27 @@ function changeSize(s) {
 
 size9.addEventListener('click', () => {
   changeSize(9);
+  table.style.fontSize = '250%';
 });
 size16.addEventListener('click', () => {
   changeSize(16);
+  table.style.fontSize = '250%';
 });
 size25.addEventListener('click', () => {
   changeSize(25);
+  table.style.fontSize = '250%';
 });
 size36.addEventListener('click', () => {
   changeSize(36);
+  table.style.fontSize = '200%';
 });
 size49.addEventListener('click', () => {
   changeSize(49);
+  table.style.fontSize = '150%';
 });
 size64.addEventListener('click', () => {
   changeSize(64);
+  table.style.fontSize = '150%';
 });
 
 // сохранение игры
@@ -309,3 +343,11 @@ const setLocalStorage = () => {
 };
 
 save.addEventListener('click', setLocalStorage);
+
+// адаптив при изменении ширины экрана
+
+window.onresize = function () {
+  if (window.innerWidth > 660) {
+    restartGame();
+  }
+};
