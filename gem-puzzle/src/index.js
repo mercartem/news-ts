@@ -165,6 +165,7 @@ function showWin() {
     localStorage.setItem('savedResults', JSON.stringify(allResults));
   };
   setLocalStorageResults();
+  restartGame();
 }
 
 // получаем топ-10 результатов
