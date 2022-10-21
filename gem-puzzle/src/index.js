@@ -346,8 +346,11 @@ save.addEventListener('click', setLocalStorage);
 
 // адаптив при изменении ширины экрана
 
+let oldWidth = window.innerWidth;
 window.onresize = function () {
-  if (window.innerWidth > 660) {
+  const newWidth = window.innerWidth;
+  if (newWidth !== oldWidth) {
     restartGame();
+    oldWidth = newWidth;
   }
 };
