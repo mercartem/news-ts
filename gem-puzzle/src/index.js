@@ -121,7 +121,7 @@ function createItems() {
       const heightTable = document.querySelector('.table').offsetHeight;
       item.style.width = `${widthTable / Math.sqrt(sizeOfTable)}px`;
       item.style.height = `${heightTable / Math.sqrt(sizeOfTable)}px`;
-      const width = (widthTable - 2) / Math.sqrt(sizeOfTable);
+      const width = Number(((widthTable - 2) / Math.sqrt(sizeOfTable)).toFixed(3));
       const left = i % Math.sqrt(sizeOfTable);
       const top = (i - left) / Math.sqrt(sizeOfTable);
       item.style.left = `${left * width}px`;
@@ -198,7 +198,7 @@ let cell = document.querySelectorAll('.item'); // получаем сгенер�
 
 function moveItems(i) {
   const widthTable = document.querySelector('.table').offsetWidth;
-  const sizeCell = (widthTable - 2) / Math.sqrt(sizeOfTable);
+  const sizeCell = Number(((widthTable - 2) / Math.sqrt(sizeOfTable)).toFixed(3));
   const cellStyle = {
     left: cell[i].style.left,
     top: cell[i].style.top,
