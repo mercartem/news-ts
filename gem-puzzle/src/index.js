@@ -121,7 +121,7 @@ function createItems() {
       const heightTable = document.querySelector('.table').offsetHeight;
       item.style.width = `${widthTable / Math.sqrt(sizeOfTable)}px`;
       item.style.height = `${heightTable / Math.sqrt(sizeOfTable)}px`;
-      const width = document.querySelector('.item').offsetWidth;
+      const width = (widthTable - 2) / Math.sqrt(sizeOfTable);
       const left = i % Math.sqrt(sizeOfTable);
       const top = (i - left) / Math.sqrt(sizeOfTable);
       item.style.left = `${left * width}px`;
@@ -197,13 +197,14 @@ overlay.addEventListener('click', () => {
 let cell = document.querySelectorAll('.item'); // получаем сгенерированную ячейку
 
 function moveItems(i) {
-  const sizeCell = cell[0].offsetWidth;
+  const widthTable = document.querySelector('.table').offsetWidth;
+  const sizeCell = (widthTable - 2) / Math.sqrt(sizeOfTable);
   const cellStyle = {
     left: cell[i].style.left,
     top: cell[i].style.top,
   };
-  const cellLeft = Number(cellStyle.left.replace(/[^0-9]/g, ''));
-  const cellTop = Number(cellStyle.top.replace(/[^0-9]/g, ''));
+  const cellLeft = Number(cellStyle.left.replace(/[^0-9,.]/g, ''));
+  const cellTop = Number(cellStyle.top.replace(/[^0-9,.]/g, ''));
   const differentLeft = cellLeft - empty.left;
   const differentTop = cellTop - empty.top;
   if ((differentLeft === 0 && (differentTop === sizeCell || differentTop === -sizeCell)) || (differentTop === 0 && (differentLeft === sizeCell || differentLeft === -sizeCell))) {
