@@ -264,8 +264,10 @@ function drag() {
   body.addEventListener('drop', (event) => {
     event.stopImmediatePropagation();
     const itemId = event.dataTransfer.getData('id');
-    table.append(document.getElementById(itemId));
-    moveItems(itemId);
+    if (event.target.className === 'table') {
+      table.append(document.getElementById(itemId));
+      moveItems(itemId);
+    }
   });
 }
 drag();
