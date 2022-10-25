@@ -22,6 +22,7 @@ const size36 = document.querySelector('.size-6');
 const size49 = document.querySelector('.size-7');
 const size64 = document.querySelector('.size-8');
 const save = document.querySelector('.save');
+const load = document.querySelector('.load');
 const results = document.querySelector('.results');
 const resultsItems = document.querySelectorAll('.results-item');
 const showResults = document.querySelector('.results-table');
@@ -61,7 +62,16 @@ const getLocalStorage = () => {
     numbers = objStorage.numbers;
   }
 };
-getLocalStorage();
+
+load.addEventListener('click', () => {
+  if (localStorage.getItem('savedGame')) {
+    getLocalStorage();
+    createItems();
+    cell = document.querySelectorAll('.item');
+    clickItem();
+    drag();
+  }
+});
 
 // тайминг
 
@@ -117,11 +127,11 @@ function createItems() {
       item.innerHTML = numbers[i];
       item.setAttribute('id', i);
       table.append(item);
-      const widthTable = document.querySelector('.table').offsetWidth;
-      const heightTable = document.querySelector('.table').offsetHeight;
+      const widthTable = document.querySelector('.table').offsetWidth - 2;
+      const heightTable = document.querySelector('.table').offsetHeight - 2;
       item.style.width = `${widthTable / Math.sqrt(sizeOfTable)}px`;
       item.style.height = `${heightTable / Math.sqrt(sizeOfTable)}px`;
-      const width = Number(((widthTable - 2) / Math.sqrt(sizeOfTable)).toFixed(3));
+      const width = Number(((widthTable) / Math.sqrt(sizeOfTable)).toFixed(3));
       const left = i % Math.sqrt(sizeOfTable);
       const top = (i - left) / Math.sqrt(sizeOfTable);
       item.style.left = `${left * width}px`;
@@ -197,8 +207,8 @@ overlay.addEventListener('click', () => {
 let cell = document.querySelectorAll('.item'); // получаем сгенерированную ячейку
 
 function moveItems(i) {
-  const widthTable = document.querySelector('.table').offsetWidth;
-  const sizeCell = Number(((widthTable - 2) / Math.sqrt(sizeOfTable)).toFixed(3));
+  const widthTable = document.querySelector('.table').offsetWidth - 2;
+  const sizeCell = Number(((widthTable) / Math.sqrt(sizeOfTable)).toFixed(3));
   const cellStyle = {
     left: cell[i].style.left,
     top: cell[i].style.top,
@@ -255,7 +265,7 @@ function drag() {
   for (let i = 0; i < cell.length; i++) {
     cell[i].addEventListener('dragstart', (event) => {
       event.stopImmediatePropagation();
-      event.dataTransfer.setData('id', event.target.id);
+      event.dataTransfer.setData('id', i);
     });
   }
   body.addEventListener('dragover', (event) => {
@@ -265,7 +275,6 @@ function drag() {
     event.stopImmediatePropagation();
     const itemId = event.dataTransfer.getData('id');
     if (event.target.className === 'table') {
-      table.append(document.getElementById(itemId));
       moveItems(itemId);
     }
   });
@@ -275,7 +284,6 @@ drag();
 // перезапуск игры
 
 function restartGame() {
-  localStorage.removeItem('savedGame');
   gameField = false;
   table.innerHTML = '';
   createItems();
@@ -345,14 +353,3 @@ const setLocalStorage = () => {
 };
 
 save.addEventListener('click', setLocalStorage);
-
-// адаптив при изменении ширины экрана
-
-let oldWidth = window.innerWidth;
-window.onresize = function () {
-  const newWidth = window.innerWidth;
-  if (newWidth !== oldWidth) {
-    restartGame();
-    oldWidth = newWidth;
-  }
-};

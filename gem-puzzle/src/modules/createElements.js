@@ -20,11 +20,11 @@ export default function createElements() {
   newGame.innerHTML = 'New game';
   buttons.append(newGame);
 
-  // const stop = document.createElement('button');
-  // stop.className = 'stop';
-  // stop.classList.add('btn');
-  // stop.innerHTML = 'Stop';
-  // buttons.append(stop);
+  const load = document.createElement('button');
+  load.className = 'load';
+  load.classList.add('btn');
+  load.innerHTML = 'Load';
+  buttons.append(load);
 
   const save = document.createElement('button');
   save.className = 'save';

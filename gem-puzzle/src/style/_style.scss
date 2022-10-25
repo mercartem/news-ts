@@ -5,7 +5,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 24px;
+  font-size: 14px;
 }
 
 .main {
@@ -13,7 +13,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 600px;
+  width: 300px;
   height: 100%;
   margin: 0 auto;
   padding: 0 10px;
@@ -26,12 +26,11 @@ h1 {
 .table {
   background-color: burlywood;
   width: 100%;
-  height: 600px;
+  height: 300px;
   border: 1px solid black;
   border-radius: 10px;
   position: relative;
   margin-bottom: 20px;
-  font-size: 50px;
 }
 
 .item {
@@ -45,6 +44,7 @@ h1 {
   background-color: whitesmoke;
   transition: 300ms;
   cursor: pointer;
+  font-size: 24px;
 }
 
 .item:first-child {
@@ -56,7 +56,7 @@ h1 {
 .buttons {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 0.5fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr;
   gap: 5px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -78,7 +78,7 @@ h1 {
   background-image: url(./img/volume_up.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 35px 35px;
+  background-size: 30px 30px;
 }
 
 .sound_off {
@@ -175,19 +175,4 @@ h1 {
 .win_active {
   opacity: 1;
   z-index: 2;
-}
-
-@media (max-width: 660px) {
-  .main {
-    width: 300px;
-  }
-  .table {
-    height: 300px;
-  }
-  .item {
-    font-size: 24px;
-  }
-  body {
-    font-size: 14px;
-  }
 }
