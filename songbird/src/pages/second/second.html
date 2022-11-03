@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body class="body">
+    <header class="header wrapper">
+      <div class="logo header__logo"></div>
+      <nav class="nav header__nav">
+        <ul class="nav__menu">
+          <li class="nav__item"><a class="nav__link" href="./">Главная</a></li>
+          <li class="nav__item">Викторина</li>
+          <li class="nav__item">Галерея</li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main wrapper">
+      <div class="score">Score: 0</div>
+      <div class="quiz">
+        <ul class="quiz__lvl">
+          <li class="quiz__item">Разминка</li>
+          <li class="quiz__item">Воробьиные</li>
+          <li class="quiz__item">Лесные птицы</li>
+          <li class="quiz__item">Певчие птицы</li>
+          <li class="quiz__item">Хищные птицы</li>
+          <li class="quiz__item">Морские птицы</li>
+        </ul>
+        <div class="quiz__question">
+          <img class="quiz__img" src="../../img/secret-bird.jpg" alt="Secret bird">
+          <div class="quiz__secret">
+            <h3 class="title">******</h3>
+            <div class="player" style="opacity: 1;">
+              <div class="player-controls">
+                <button class="play player-icon"></button>
+                <div class="progress-bar">
+                  <input type="range" class="play-progress" max="NaN">
+                  <div class="play-timer">
+                    <div class="time-now">00:00</div>
+                    <div class="duration">00:00</div>
+                  </div>
+                </div>
+                <div class="volume-controls">
+                  <button class="volume player-icon"></button>
+                  <input type="range" class="volume-progress" min="0" max="100" step="1" value="50">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="quiz__options">
+          <li class="quiz__bird"><span class="point"></span></li>
+          <li class="quiz__bird"><span class="point"></span></li>
+          <li class="quiz__bird"><span class="point"></span></li>
+          <li class="quiz__bird"><span class="point"></span></li>
+          <li class="quiz__bird"><span class="point"></span></li>
+          <li class="quiz__bird"><span class="point"></span></li>
+        </ul>
+        <div class="quiz__description">
+          <p class="quiz__instruction">Послушайте плеер.<br>Выберите птицу из списка.</p>
+        </div>
+        <button class="btn quiz__btn">Next Level</button>
+        <div class="quiz__congrat">
+          <h2 class="title title-congrat">ПОЗДРАВЛЯЕМ!</h2>
+          <p class="text">Вы прошли викторину и набрали 0 из 30 возможных баллов!</p>
+          <button class="btn quiz__btn-new-game">Попробовать ещё раз!</button>
+        </div>
+      </div>
+    </main>
+    <footer class="footer wrapper">
+      <div class="logo footer__logo"></div>
+      <ul class="about footer__about">
+        <li class="about__github"><a href="https://github.com/mercartem"><img class="about__img" src="../../img/github.png" alt="Github"></a></li>
+        <li class="about__year">© 2022</li>
+        <li class="about__school"><a href="https://rs.school/js/"><img class="about__img about__img-school" src="../../img/rss.svg" alt="RS School" width="100px" height="40px"></a></li>
+      </ul>
+    </footer>
+</body>
+</html>
