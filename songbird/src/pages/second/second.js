@@ -1,16 +1,35 @@
 import './second.html';
 import './second.scss';
 
-const inputPlay = document.querySelector('.play-progress');
-const inputVolume = document.querySelector('.volume-progress');
+import birdsData from './modules/birds.js';
 
-console.log(inputVolume)
+const input = document.getElementsByTagName('input');
+const play = document.querySelector('.play');
 
-inputPlay.addEventListener('input', function() {
-  inputPlay.style.background = 'linear-gradient(to right, rgb(0, 188, 140)' + inputPlay.value + '%, rgb(115, 115, 115) 1%, rgb(115, 115, 115) 100%)';
-});
-inputVolume.addEventListener('input', function() {
-  inputVolume.style.background = 'linear-gradient(to right, rgb(0, 188, 140)' + inputVolume.value + '%, rgb(115, 115, 115) 1%, rgb(115, 115, 115) 100%)';
-});
+// Переменные
 
-// linear-gradient(to right, rgb(0, 188, 140) 0%, rgb(61, 133, 140) 45.9378%, rgb(115, 115, 115) 45.9378%, rgb(115, 115, 115) 100%)
+let lvl = 0;
+let currentBird = {};
+
+// Стилизация инпута при перемещении ползунка
+
+for (let i = 0; i < input.length; i++) {
+  input[i].addEventListener('input', function() {
+    input[i].style.background = 'linear-gradient(to right, rgb(0, 188, 140)' + input[i].value + '%, rgb(115, 115, 115) 1%, rgb(115, 115, 115) 100%)';
+  });
+}
+
+// Генерация птицы в блок вопроса
+
+const randomBirds = () => birdsData[lvl].sort(() => Math.random() - 0.5)[0];
+currentBird = randomBirds();
+console.log(currentBird)
+
+// Аудио в блоке вопроса
+
+const playAudio = (src) => {
+  const audio = new Audio(src);
+  audio.play();
+}
+
+play.addEventListener('click', playAudio)

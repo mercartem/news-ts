@@ -31,7 +31,7 @@
         <div class="quiz__question">
           <img class="quiz__img" src="../../img/secret-bird.jpg" alt="Secret bird">
           <div class="quiz__secret">
-            <h3 class="title">******</h3>
+            <h2 class="title">******</h2>
             <div class="player" style="opacity: 1;">
               <div class="player-controls">
                 <button class="play player-icon"></button>
@@ -42,24 +42,50 @@
                     <div class="duration">00:00</div>
                   </div>
                 </div>
-                <div class="volume-controls">
-                  <button class="volume player-icon"></button>
-                  <input type="range" class="volume-progress" min="0" max="100" step="1" value="50">
-                </div>
+              </div>
+              <div class="volume-controls">
+                <button class="volume player-icon"></button>
+                <input type="range" class="volume-progress" min="0" max="100" step="1" value="50">
               </div>
             </div>
           </div>
         </div>
         <ul class="quiz__options">
-          <li class="quiz__bird"><span class="point"></span></li>
-          <li class="quiz__bird"><span class="point"></span></li>
-          <li class="quiz__bird"><span class="point"></span></li>
-          <li class="quiz__bird"><span class="point"></span></li>
-          <li class="quiz__bird"><span class="point"></span></li>
-          <li class="quiz__bird"><span class="point"></span></li>
+          <li class="quiz__bird"><span class="point"></span>Ворон</li>
+          <li class="quiz__bird"><span class="point"></span>Журавль</li>
+          <li class="quiz__bird"><span class="point"></span>Ласточка</li>
+          <li class="quiz__bird"><span class="point"></span>Козодой</li>
+          <li class="quiz__bird"><span class="point"></span>Кукушка</li>
+          <li class="quiz__bird"><span class="point"></span>Синица</li>
         </ul>
         <div class="quiz__description">
           <p class="quiz__instruction">Послушайте плеер.<br>Выберите птицу из списка.</p>
+          <div class="description">
+            <div class="kind-container">
+              <img class="quiz__img quiz__img_center" src="../../img/secret-bird.jpg" alt="Secret bird">
+              <div class="kind">
+                <h3 class="kind__name">Кукушка</h3>
+                <h4 class="kind__name-eng">Cuculus canorus</h4>
+                <div class="player" style="opacity: 1;">
+                  <div class="player-controls">
+                    <button class="play player-icon"></button>
+                    <div class="progress-bar">
+                      <input type="range" class="play-progress" max="NaN">
+                      <div class="play-timer">
+                        <div class="time-now">00:00</div>
+                        <div class="duration">00:00</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="volume-controls kind__volume">
+                    <button class="volume player-icon"></button>
+                    <input type="range" class="volume-progress" min="0" max="100" step="1" value="50">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="kind__text">Кукушку назвали так из-за особенностей ее песен. Звонкое «ку-ку» не спутать ни с какой другой птицей. Кукушки не строят гнезда, их потомство выращивают другие виды пернатых, которым кукушки подбрасывают свои яйца.</p>
+          </div>
         </div>
         <button class="btn quiz__btn">Next Level</button>
         <div class="quiz__congrat">
