@@ -117,7 +117,7 @@ a {
   padding: 5px;
 }
 
-.quiz__item:first-child {
+.quiz__item_active {
   background-color: #00bc8c;
 }
 
@@ -139,7 +139,7 @@ a {
 }
 
 .quiz__secret {
-  font-size: 2rem;
+  font-size: 1.5rem;
   flex: auto;
   .title {
     border-bottom: 1px solid #555;
@@ -229,20 +229,7 @@ a {
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 5px;
   cursor: pointer;
-}
-
-input {
-  background: linear-gradient(to right, rgb(0, 188, 140) 50%, rgb(115, 115, 115) 1%, rgb(115, 115, 115) 100%);
-  -webkit-appearance: none;
-}
-
-input[type=range]::-webkit-slider-thumb {
-  background: gray;
-  border-radius: 50%;
-  cursor: pointer;
-  width: 15px;
-  height: 15px;
-  -webkit-appearance: none;
+  margin-bottom: 10px;
 }
 
 .play-timer {
@@ -305,6 +292,18 @@ input[type=range]::-webkit-slider-thumb {
 .quiz__btn {
   grid-area: btn;
   background-color: #303030;
+  z-index: -1;
+}
+
+.quiz__btn_active {
+  z-index: 1;
+  background-color: #00bc8c;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.quiz__btn_active:hover {
+  background-color: #00efb2;
 }
 
 .quiz {
@@ -312,7 +311,7 @@ input[type=range]::-webkit-slider-thumb {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 0.7fr 2fr 3fr 0.4fr;
+  grid-template-rows: 0.7fr 2fr 3fr 0.6fr;
   grid-template-areas: 
     'lvl lvl'
     'ques ques'
@@ -441,7 +440,7 @@ input[type=range]::-webkit-slider-thumb {
 
   .quiz {
     grid-template-columns: 1fr;
-    grid-template-rows: 0.4fr 0.5fr 0.5fr 1fr 0.2fr;
+    grid-template-rows: 0.4fr 0.5fr 1fr 1fr 0.2fr;
     grid-template-areas: 
       'lvl'
       'ques'

@@ -21,7 +21,7 @@
       <div class="score">Score: 0</div>
       <div class="quiz">
         <ul class="quiz__lvl">
-          <li class="quiz__item">Разминка</li>
+          <li class="quiz__item quiz__item_active">Разминка</li>
           <li class="quiz__item">Воробьиные</li>
           <li class="quiz__item">Лесные птицы</li>
           <li class="quiz__item">Певчие птицы</li>
@@ -36,16 +36,16 @@
               <div class="player-controls">
                 <button class="play player-icon"></button>
                 <div class="progress-bar">
-                  <input type="range" class="play-progress" max="NaN">
+                  <input type="range" class="play-progress">
                   <div class="play-timer">
-                    <div class="time-now">00:00</div>
-                    <div class="duration">00:00</div>
+                    <div class="time-now">0:00</div>
+                    <div class="duration">0:00</div>
                   </div>
                 </div>
               </div>
               <div class="volume-controls">
                 <button class="volume player-icon"></button>
-                <input type="range" class="volume-progress" min="0" max="100" step="1" value="50">
+                <input type="range" class="volume-progress" min="0" max="1" step="0.01" value="0.5">
               </div>
             </div>
           </div>
@@ -70,7 +70,7 @@
                   <div class="player-controls">
                     <button class="play player-icon"></button>
                     <div class="progress-bar">
-                      <input type="range" class="play-progress" max="NaN">
+                      <input type="range" class="play-progress" value="0">
                       <div class="play-timer">
                         <div class="time-now">00:00</div>
                         <div class="duration">00:00</div>
@@ -79,7 +79,7 @@
                   </div>
                   <div class="volume-controls kind__volume">
                     <button class="volume player-icon"></button>
-                    <input type="range" class="volume-progress" min="0" max="100" step="1" value="50">
+                    <input type="range" class="volume-progress" min="0" max="1" step="0.01" value="0.5">
                   </div>
                 </div>
               </div>
