@@ -20,9 +20,14 @@ const birdName = document.querySelector('.kind__name');
 const birdNameEng = document.querySelector('.kind__name-eng');
 const birdAbout = document.querySelector('.kind__text');
 const btn = document.querySelector('.quiz__btn');
-const btnActive = document.querySelector('.quiz__btn_active');
 const lvls = document.querySelectorAll('.quiz__item');
 const score = document.querySelector('.score');
+const questBlock = document.querySelector('.quiz__question');
+const optionsBlock = document.querySelector('.quiz__options');
+const descriptBlock = document.querySelector('.quiz__description');
+const congratBlock = document.querySelector('.quiz__congrat');
+const quizBlock = document.querySelector('.quiz');
+const text = document.querySelector('.text');
 
 // Переменные
 
@@ -31,7 +36,7 @@ let currentScore = 0; // баллы
 let currentBird = {}; // текущая птица в вопросе
 let isPlay = false; // флаг проигрывателя
 let restoreValue; // сохранение значения звука
-let intervalId;
+let intervalId; // очищение интервала
 const audio = new Audio();
 
 // Генерация птицы в блок вопроса
@@ -165,21 +170,28 @@ const chooseBird = (i) => {
   if (currentBird.name === birds[i].textContent) {
     answerAudio.src = 'https://allsoundsaround.com/wp-content/uploads/2021/01/zvuk-pravilnogo-otveta-iz-peredachi-100-k-1-5200.mp3?_=1';
     answerAudio.play();
-    points[i].style.background = '#00bc8c';
     answer.textContent = currentBird.name;
     img[0].setAttribute('src', currentBird.image);
     btn.classList.add('quiz__btn_active');
     resetAudio();
-    if (!btn.classList.contains('quiz__btn_active')) {
+    if (points[i].classList.contains('point_green') === false) {
       currentScore = currentScore + 5;
+    }
+    points[i].classList.add('point_green');
+    if (lvl === 5) {
+      showCongrat();
     }
   } else {
     answerAudio.src = 'https://allsoundsaround.com/wp-content/uploads/2021/01/zvuk-netochnosti-v-otvete-ne-zaschitan-5194.mp3?_=11';
     answerAudio.play();
-    points[i].style.background = '#d62c1a';
-    currentScore = currentScore - 1;
+    if (points[i].classList.contains('point_red') === false && btn.classList.contains('quiz__btn_active') === false) {
+      currentScore = currentScore - 1;
+    }
+    points[i].classList.add('point_red');
   }
-  console.log(currentScore)
+  if (btn.classList.contains('quiz__btn_active')) {
+    score.textContent = `Score: ${currentScore}`;
+  }
 }
 
 for (let i = 0; i < birds.length; i++) {
@@ -212,3 +224,15 @@ const newLvl = () => {
 }
 
 btn.addEventListener('click', newLvl)
+
+// Поздравление
+
+const showCongrat = () => {
+  questBlock.style.display = 'none';
+  optionsBlock.style.display = 'none';
+  btn.style.display = 'none';
+  descriptBlock.style.display = 'none';
+  quizBlock.style.display = 'block';
+  congratBlock.style.display = 'flex';
+  text.textContent = `Вы прошли викторину и набрали ${currentScore} из 30 возможных баллов!`;
+}

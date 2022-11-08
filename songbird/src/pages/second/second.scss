@@ -71,18 +71,22 @@ a {
 
 .nav__item {
   cursor: pointer;
+  transition: .1s;
 }
 
 .nav__item:hover {
   color: #00bc8c;
+  transition: .3s;
 }
 
 .nav__link:hover {
   color: #00bc8c;
+  transition: .3s;
 }
 
 .nav__item:nth-child(2) {
   color: #00bc8c;
+  transition: .3s;
 }
 
 // Main
@@ -236,7 +240,7 @@ a {
   margin-top: -5px;
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .quiz__options {
@@ -255,6 +259,7 @@ a {
   display: flex;
   align-items: center;
   cursor: pointer;
+  transition: .3s;
 }
 
 .quiz__bird:hover {
@@ -272,7 +277,15 @@ a {
   height: 10px;
   margin-right: 15px;
   border-radius: 50%;
-  transition: .1s;
+  transition: .5s;
+}
+
+.point_red {
+  background-color: #d62c1a;
+}
+
+.point_green {
+  background-color: #00bc8c;
 }
 
 .quiz__description {
@@ -298,7 +311,7 @@ a {
 .quiz__btn_active {
   z-index: 1;
   background-color: #00bc8c;
-  transition: 0.5s;
+  transition: .3s;
   cursor: pointer;
 }
 
@@ -311,13 +324,13 @@ a {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 0.7fr 2fr 3fr 0.6fr;
+  grid-template-rows: 0.7fr 2fr 3.4fr 0.6fr;
   grid-template-areas: 
     'lvl lvl'
     'ques ques'
     'opt desc'
     'btn btn';
-    gap: 3%;
+  gap: 3%;
 }
 
 .quiz__congrat {
@@ -344,10 +357,14 @@ a {
   text-align: center;
 }
 
+.form {
+  width: 80%;
+}
+
 .quiz__btn-new-game {
   margin-top: 50px;
   border: 0px;
-  width: 80%;
+  width: 100%;
   height: 60px;
   background-color: #00bc8c;
   border-radius: 10px;
@@ -447,6 +464,7 @@ a {
       'opt' 
       'desc'
       'btn';
+    gap: 1%;
   }
 
   .nav__menu {

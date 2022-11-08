@@ -71,18 +71,22 @@ a {
 
 .nav__item {
   cursor: pointer;
+  transition: .3s;
 }
 
 .nav__item:hover {
   color: #00bc8c;
+  transition: .3s;
 }
 
 .nav__link:hover {
   color: #00bc8c;
+  transition: .3s;
 }
 
 .nav__item:first-child {
   color: #00bc8c;
+  transition: .3s;
 }
 
 // Main
