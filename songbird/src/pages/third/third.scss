@@ -1,0 +1,298 @@
+@import '../../libs/normalize';
+
+// Reset style
+
+* {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a:active,
+a:hover,
+a {
+  text-decoration: none;
+  color: white
+}
+
+// Body
+
+.body {
+  min-height: 100vh;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  background-color: #222;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.wrapper {
+  width: 70%;
+  margin: 0 auto;
+}
+
+// Header
+
+.header,
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  min-height: 70px;
+}
+
+.logo {
+  background-image: url(../../img/songbird.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 50%;
+  height: 55px;
+  display: flex;
+  align-self: center;
+}
+
+.nav {
+  width: 50%;
+  display: flex;
+  align-self: center;
+  justify-content: flex-end;
+}
+
+.nav__menu {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav__item {
+  cursor: pointer;
+  transition: .3s;
+}
+
+.nav__item:hover {
+  color: #00bc8c;
+  transition: .3s;
+}
+
+.nav__link:hover {
+  color: #00bc8c;
+  transition: .3s;
+}
+
+.nav__item:last-child {
+  color: #00bc8c;
+  transition: .3s;
+}
+
+// Main
+
+.gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(12, 1fr);
+  grid-row-gap: 10px;
+  grid-column-gap: 2%;
+  margin-bottom: 20px;
+}
+
+.description {
+  background-color: #303030;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.kind-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  margin-bottom: 20px;
+}
+
+.kind {
+  flex: auto;
+}
+
+.kind__name,
+.kind__name-eng {
+  border-bottom: 1px solid #555;
+  padding: 5px;
+}
+
+.kind__text {
+  text-align: left;
+}
+
+.player {
+  margin-top: 30px;
+  row-gap: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.player-icon {
+  min-width: 32px;
+  height: 32px;
+  background-size: 32px 32px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  opacity: .8;
+  cursor: pointer;
+  transition: .3s;  
+}
+
+.player-icon:hover {
+  opacity: 1;
+}
+
+.player-icon:active {
+  border: 0;
+  outline: 0;  
+  transform: scale(1.1);
+}
+
+.play {
+  width: 30px;
+  height: 30px;
+  background-size: 30px 30px;
+  background-image: url(../../img/play.svg);
+  margin-right: 10px;
+}
+
+.pause {
+  background-image: url(../../img/pause.svg);
+}
+
+.volume {
+  background-image: url(../../img/volume.svg);
+  margin-right: 10px;
+}
+
+.mute {
+  background-image: url(../../img/mute.svg);
+}
+
+.volume-progress {
+  width: 100%;
+  height: 7px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.progress-bar {
+  width: 100%;
+  margin-right: 20px;
+}
+
+.volume-controls {
+  margin: 20px 0;
+  width: 30%;
+  display: flex;
+  align-items: center;
+}
+
+.play-progress {
+  width: 100%;
+  height: 7px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.play-timer {
+  margin-top: -5px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.img {
+  border-radius: 10px;
+  width: 200px;
+  height: 178px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
+// Footer
+
+.footer__logo {
+  width: 70%;
+}
+
+.footer__about {
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10%;
+  align-items: center;
+}
+
+// Адаптив
+
+@media (max-width: 1280px) {
+  .nav__menu {
+    width: 100%;
+  }
+
+  .footer__about {
+    width: 100%;
+    gap: 2%;
+  }
+}
+
+@media (max-width: 740px) {
+  .nav__menu {
+    flex-direction: column;
+  }
+
+  .nav__item {
+    text-align: right;
+    font-size: 14px;
+  }
+
+  .about__img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .about__img-school {
+    width: 40px;
+    height: 40px;
+  }
+
+  .about__year {
+    font-size: 14px;
+  }
+
+  .logo {
+    background-position: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(18, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(36, 1fr);
+  }
+  .volume-controls {
+    width: 50%;
+  }
+}

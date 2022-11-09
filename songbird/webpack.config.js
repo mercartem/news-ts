@@ -18,6 +18,7 @@ module.exports = {
     entry: {
         index: ["@babel/polyfill", path.resolve(__dirname, 'src', 'pages', 'main', 'main.js')],
         second: ["@babel/polyfill", path.resolve(__dirname, 'src', 'pages', 'second', 'second.js')],
+        third: ["@babel/polyfill", path.resolve(__dirname, 'src', 'pages', 'third', 'third.js')],
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -38,6 +39,12 @@ module.exports = {
             chunks: ['second'],
             filename: 'second.html'
         }),
+        new HtmlWebpackPlugin({
+          template: './src/pages/third/third.html',
+          inject: true,
+          chunks: ['third'],
+          filename: 'third.html'
+      }),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
         })
