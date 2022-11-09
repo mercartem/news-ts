@@ -38,7 +38,7 @@ let currentBird = {}; // текущая птица в вопросе
 let isPlay = false; // флаг проигрывателя
 let restoreValue; // сохранение значения звука
 let intervalId; // очищение интервала
-let lang = 'en'; // язык
+let lang = 'ru'; // язык
 let birdsData = lang === 'ru' ? birdsDataRu.slice() : birdsDataEn.slice();
 const audio = new Audio();
 
