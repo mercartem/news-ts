@@ -1,7 +1,8 @@
 import './second.html';
 import './second.scss';
 
-import birdsData from './modules/birds.js';
+import birdsDataRu from './modules/birds.js';
+import birdsDataEn from './modules/birdsEng.js';
 
 // элементы
 
@@ -37,7 +38,19 @@ let currentBird = {}; // текущая птица в вопросе
 let isPlay = false; // флаг проигрывателя
 let restoreValue; // сохранение значения звука
 let intervalId; // очищение интервала
+let lang = 'en'; // язык
+let birdsData = lang === 'ru' ? birdsDataRu.slice() : birdsDataEn.slice();
 const audio = new Audio();
+
+// Наполнение вариантов ответа
+
+const showOptions = () => {
+  for (let i = 0; i < birds.length; i++) {
+    birds[i].innerHTML = `<span class="point"></span>${birdsData[lvl][i].name}`;
+  }
+}
+
+showOptions();
 
 // Генерация птицы в блок вопроса
 
@@ -54,6 +67,8 @@ progressBar[1].value = 0;
 
 const playAudio = (i, src) => {
   clearInterval(intervalId);
+  play[0].classList.remove('pause');
+  play[1].classList.remove('pause');
   if (i === 0) {
     audio.src = currentBird.audio;
   } else {
@@ -66,7 +81,6 @@ const playAudio = (i, src) => {
     play[i].classList.add('pause');
     intervalId = setInterval(updateProgressValue, 1000, i);
   } else {
-    console.log('aa')
     audio.pause();
     isPlay = false;
     play[i].classList.remove('pause');
@@ -166,7 +180,6 @@ const chooseBird = (i) => {
   birdName.setAttribute('id', i);
   birdNameEng.textContent = birdsData[lvl][i].species;
   birdAbout.textContent = birdsData[lvl][i].description;
-  play[1].classList.remove('pause');
   if (currentBird.name === birds[i].textContent) {
     answerAudio.src = 'https://allsoundsaround.com/wp-content/uploads/2021/01/zvuk-pravilnogo-otveta-iz-peredachi-100-k-1-5200.mp3?_=1';
     answerAudio.play();
@@ -182,6 +195,9 @@ const chooseBird = (i) => {
       showCongrat();
     }
   } else {
+    if (play[1].classList.contains('pause')) {
+      resetAudio();
+    }
     answerAudio.src = 'https://allsoundsaround.com/wp-content/uploads/2021/01/zvuk-netochnosti-v-otvete-ne-zaschitan-5194.mp3?_=11';
     answerAudio.play();
     if (points[i].classList.contains('point_red') === false && btn.classList.contains('quiz__btn_active') === false) {
@@ -215,9 +231,7 @@ const newLvl = () => {
   answer.textContent = '******';
   img[0].setAttribute('src', 'assets/secret-bird.jpg');
   currentBird = randomBirds();
-  for (let i = 0; i < birds.length; i++) {
-    birds[i].innerHTML = `<span class="point"></span>${birdsData[lvl][i].name}`;
-  }
+  showOptions();
   instructionBlock.style.display = 'block';
   descriptionBlock.style.display = 'none';
   btn.classList.remove('quiz__btn_active');
