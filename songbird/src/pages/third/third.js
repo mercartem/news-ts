@@ -1,81 +1,138 @@
 import './third.html';
 import './third.scss';
 
-import birdsData from './modules/birds.js';
+import birdsDataRu from './modules/birds.js';
+import birdsDataEn from './modules/birdsEng.js';
 
 // элементы
 
 const gallery = document.querySelector('.gallery');
+const btnRu = document.querySelector('.ru');
+const btnEn = document.querySelector('.en');
+const language = document.querySelector('.dropbtn');
+const navLink = document.querySelectorAll('.nav__link');
+const navItem = document.querySelectorAll('.nav__item');
+
+// переменные
+
+let lang = 'ru'; // язык
+let birdsData;
+
+// получаем данные из localstorage
+
+if (localStorage.getItem('languageQuiz')) {
+  lang = localStorage.getItem('languageQuiz');
+}
+
+// смена языка
+
+const changeLanguage = (lang) => {
+  if (lang === 'ru') {
+    navLink[0].textContent = 'Главная';
+    navLink[1].textContent = 'Викторина';
+    navItem[2].textContent = 'Галерея';
+    language.classList.add('ru');
+    language.classList.remove('en');
+    language.textContent = 'RU';
+    birdsData = birdsDataRu.slice();
+  } else {
+    navLink[0].textContent = 'Main';
+    navLink[1].textContent = 'Quiz';
+    navItem[2].textContent = 'Gallery';
+    language.classList.remove('ru');
+    language.classList.add('en');
+    language.textContent = 'EN';
+    birdsData = birdsDataEn.slice();
+  }
+  gallery.innerHTML = '';
+  drowGallery();
+}
+
+changeLanguage(lang);
+
+btnEn.addEventListener('click', () => {
+  lang = 'eng'
+  changeLanguage(lang);
+  localStorage.setItem('languageQuiz', 'eng');
+})
+
+btnRu.addEventListener('click', () => {
+  lang = 'ru'
+  changeLanguage(lang);
+  localStorage.setItem('languageQuiz', 'ru');
+})
 
 // Отрисовка всех описаний
 
-for (let i = 0; i < birdsData.length; i++) {
-  for (let j = 0; j < birdsData[i].length; j++) {
+function drowGallery() {
+  for (let i = 0; i < birdsData.length; i++) {
+    for (let j = 0; j < birdsData[i].length; j++) {
 
-    const description = document.createElement('div');
-    description.className = 'description';
-    gallery.append(description);
+      const description = document.createElement('div');
+      description.className = 'description';
+      gallery.append(description);
 
-    const kindBlock = document.createElement('div');
-    kindBlock.className = 'kind-container';
-    description.append(kindBlock);
+      const kindBlock = document.createElement('div');
+      kindBlock.className = 'kind-container';
+      description.append(kindBlock);
 
-    const text = document.createElement('p');
-    text.className = 'text';
-    text.textContent = birdsData[i][j].description;
-    description.append(text);
+      const text = document.createElement('p');
+      text.className = 'text';
+      text.textContent = birdsData[i][j].description;
+      description.append(text);
 
-    const img = document.createElement('img');
-    img.className = 'img';
-    img.setAttribute('src', birdsData[i][j].image);
-    kindBlock.append(img);
+      const img = document.createElement('img');
+      img.className = 'img';
+      img.setAttribute('src', birdsData[i][j].image);
+      kindBlock.append(img);
 
-    const kind = document.createElement('div');
-    kind.className = 'kind';
-    kindBlock.append(kind);
+      const kind = document.createElement('div');
+      kind.className = 'kind';
+      kindBlock.append(kind);
 
-    const title = document.createElement('h3');
-    title.className = 'kind__name';
-    title.textContent = birdsData[i][j].name;
-    kind.append(title);
+      const title = document.createElement('h3');
+      title.className = 'kind__name';
+      title.textContent = birdsData[i][j].name;
+      kind.append(title);
 
-    const subTitle = document.createElement('h4');
-    subTitle.className = 'kind__name-eng';
-    subTitle.textContent = birdsData[i][j].species;
-    kind.append(subTitle);
+      const subTitle = document.createElement('h4');
+      subTitle.className = 'kind__name-eng';
+      subTitle.textContent = birdsData[i][j].species;
+      kind.append(subTitle);
 
-    const player = document.createElement('div');
-    player.className = 'player';
-    kind.append(player);
+      const player = document.createElement('div');
+      player.className = 'player';
+      kind.append(player);
 
-    const btn = document.createElement('button');
-    btn.className = 'play';
-    btn.classList.add('player-icon');
-    player.append(btn);
+      const btn = document.createElement('button');
+      btn.className = 'play';
+      btn.classList.add('player-icon');
+      player.append(btn);
 
-    const progress = document.createElement('div');
-    progress.className = 'progress-bar';
-    player.append(progress);
+      const progress = document.createElement('div');
+      progress.className = 'progress-bar';
+      player.append(progress);
 
-    const input = document.createElement('input');
-    input.className = 'play-progress';
-    input.setAttribute('type', 'range');
-    input.setAttribute('value', '0');
-    progress.append(input);
+      const input = document.createElement('input');
+      input.className = 'play-progress';
+      input.setAttribute('type', 'range');
+      input.setAttribute('value', '0');
+      progress.append(input);
 
-    const timer = document.createElement('div');
-    timer.className = 'play-timer';
-    progress.append(timer);
+      const timer = document.createElement('div');
+      timer.className = 'play-timer';
+      progress.append(timer);
 
-    const currentTime = document.createElement('div');
-    currentTime.className = 'time-now';
-    currentTime.textContent = '0:00';
-    timer.append(currentTime);
+      const currentTime = document.createElement('div');
+      currentTime.className = 'time-now';
+      currentTime.textContent = '0:00';
+      timer.append(currentTime);
 
-    const duration = document.createElement('div');
-    duration.className = 'duration';
-    duration.textContent = '0:00';
-    timer.append(duration);
+      const duration = document.createElement('div');
+      duration.className = 'duration';
+      duration.textContent = '0:00';
+      timer.append(duration);
+    }
   }
 }
 
