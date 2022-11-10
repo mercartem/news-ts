@@ -29,6 +29,14 @@ const descriptBlock = document.querySelector('.quiz__description');
 const congratBlock = document.querySelector('.quiz__congrat');
 const quizBlock = document.querySelector('.quiz');
 const text = document.querySelector('.text');
+const navLink = document.querySelectorAll('.nav__link');
+const navItem = document.querySelectorAll('.nav__item');
+const quizItem = document.querySelectorAll('.quiz__item');
+const titleCongrat = document.querySelector('.title-congrat');
+const btnNewGame = document.querySelector('.quiz__btn-new-game');
+const btnRu = document.querySelector('.ru');
+const btnEn = document.querySelector('.en');
+const language = document.querySelector('.dropbtn');
 
 // Переменные
 
@@ -39,14 +47,21 @@ let isPlay = false; // флаг проигрывателя
 let restoreValue; // сохранение значения звука
 let intervalId; // очищение интервала
 let lang = 'ru'; // язык
-let birdsData = lang === 'ru' ? birdsDataRu.slice() : birdsDataEn.slice();
 const audio = new Audio();
+
+// Получаем данные из localstorage
+
+if (localStorage.getItem('languageQuiz')) {
+  lang = localStorage.getItem('languageQuiz');
+}
+
+let birdsData = lang === 'ru' ? birdsDataRu.slice() : birdsDataEn.slice();
 
 // Наполнение вариантов ответа
 
 const showOptions = () => {
   for (let i = 0; i < birds.length; i++) {
-    birds[i].innerHTML = `<span class="point"></span>${birdsData[lvl][i].name}`;
+    birds[i].childNodes[1].textContent = birdsData[lvl][i].name;
   }
 }
 
@@ -59,6 +74,86 @@ const randomBirds = () => {
   return bird.sort(() => Math.random() - 0.5)[0];
 }
 currentBird = randomBirds();
+
+// смена языка
+
+const changeLanguage = (lang) => {
+  if (lang === 'ru') {
+    navLink[0].textContent = 'Главная';
+    navItem[1].textContent = 'Викторина';
+    navLink[1].textContent = 'Галерея';
+    quizItem[0].textContent = 'Разминка';
+    quizItem[1].textContent = 'Воробьиные';
+    quizItem[2].textContent = 'Лесные птицы';
+    quizItem[3].textContent = 'Певчие птицы';
+    quizItem[4].textContent = 'Хищные птицы';
+    quizItem[5].textContent = 'Морские птицы';
+    instructionBlock.innerHTML = 'Послушайте плеер.<br>Выберите птицу из списка.';
+    titleCongrat.textContent = 'ПОЗДРАВЛЯЕМ!';
+    btnNewGame.textContent = 'Попробовать ещё раз!';
+    btn.textContent = 'Дальше';
+    text.textContent = `Вы прошли викторину и набрали ${currentScore} из 30 возможных баллов!`;
+    language.classList.add('ru');
+    language.classList.remove('en');
+    language.textContent = 'RU';
+    birdsData = birdsDataRu.slice();
+    showOptions()
+    for (let i = 0; i < birdsData[lvl].length; i++) {
+      if (currentBird.name === birdsDataEn[lvl][i].name) {
+        currentBird = birdsDataRu[lvl][i];
+      }
+      if (birdName.textContent === birdsDataEn[lvl][i].name) {
+        birdName.textContent = birdsDataRu[lvl][i].name;
+        birdAbout.textContent = birdsDataRu[lvl][i].description;
+      }
+    }
+  } else {
+    navLink[0].textContent = 'Main';
+    navItem[1].textContent = 'Quiz';
+    navLink[1].textContent = 'Gallery';
+    quizItem[0].textContent = 'Warm up';
+    quizItem[1].textContent = 'Passerines';
+    quizItem[2].textContent = 'Forest birds';
+    quizItem[3].textContent = 'Song birds';
+    quizItem[4].textContent = 'Predator birds';
+    quizItem[5].textContent = 'Sea birds';
+    instructionBlock.innerHTML = 'Listen to the player.<br>Select a bird from the list.';
+    titleCongrat.textContent = 'CONGRATULATIONS!';
+    btnNewGame.textContent = 'Try again!';
+    btn.textContent = 'Next level';
+    text.textContent = `You passed the quiz and scored ${currentScore} out of 30 possible points!`;
+    language.classList.remove('ru');
+    language.classList.add('en');
+    language.textContent = 'EN';
+    birdsData = birdsDataEn.slice();
+    showOptions()
+    for (let i = 0; i < birdsData[lvl].length; i++) {
+      if (currentBird.name === birdsDataRu[lvl][i].name) {
+        currentBird = birdsDataEn[lvl][i];
+      }
+      if (birdName.textContent === birdsDataRu[lvl][i].name) {
+        birdName.textContent = birdsDataEn[lvl][i].name;
+        birdAbout.textContent = birdsDataEn[lvl][i].description;
+      }
+    }
+  }
+}
+
+changeLanguage(lang)
+
+btnEn.addEventListener('click', () => {
+  lang = 'eng'
+  showOptions();
+  changeLanguage(lang);
+  localStorage.setItem('languageQuiz', 'eng');
+})
+
+btnRu.addEventListener('click', () => {
+  lang = 'ru'
+  showOptions();
+  changeLanguage(lang);
+  localStorage.setItem('languageQuiz', 'ru');
+})
 
 // Аудио в блоке вопроса
 
@@ -231,10 +326,13 @@ const newLvl = () => {
   answer.textContent = '******';
   img[0].setAttribute('src', 'assets/secret-bird.jpg');
   currentBird = randomBirds();
-  showOptions();
+  for (let i = 0; i < birds.length; i++) {
+    birds[i].innerHTML = `<span class="point"></span>${birdsData[lvl][i].name}`;
+  }
   instructionBlock.style.display = 'block';
   descriptionBlock.style.display = 'none';
   btn.classList.remove('quiz__btn_active');
+  resetAudio();
 }
 
 btn.addEventListener('click', newLvl)
@@ -248,5 +346,9 @@ const showCongrat = () => {
   descriptBlock.style.display = 'none';
   quizBlock.style.display = 'block';
   congratBlock.style.display = 'flex';
-  text.textContent = `Вы прошли викторину и набрали ${currentScore} из 30 возможных баллов!`;
+  if (lang === 'ru') {
+    text.textContent = `Вы прошли викторину и набрали ${currentScore} из 30 возможных баллов!`;
+  } else {
+    text.textContent = `You passed the quiz and scored ${currentScore} out of 30 possible points!`;
+  }
 }
