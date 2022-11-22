@@ -297,8 +297,8 @@ const chooseBird = (i) => {
     answerAudio.play();
     if (points[i].classList.contains('point_red') === false && btn.classList.contains('quiz__btn_active') === false) {
       currentScore = currentScore - 1;
+      points[i].classList.add('point_red');
     }
-    points[i].classList.add('point_red');
   }
   if (btn.classList.contains('quiz__btn_active')) {
     score.textContent = `Score: ${currentScore}`;
