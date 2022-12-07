@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
   align-items: flex-start;
   font: 300 1em 'Fira Sans', sans-serif;
 }
@@ -13,7 +14,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  font-size: 1.3em;
+  font-size: 1em;
   color: #70d6ff;
 }
 
@@ -28,6 +29,9 @@
 }
 
 .source__item {
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
   background: none;
   border: 2px solid #30c5ff;
   font: inherit;
@@ -62,4 +66,48 @@
 
 ::-webkit-scrollbar {
   width: 10px;
+}
+
+@media (max-width: 1000px) {
+  .sources {
+    width: 200px;
+    font-size: 0.8em;
+  }
+
+  .source__item {
+    width: 120px;
+    justify-content: center;
+  }
+
+  .source__item-name {
+    text-align: center;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 640px) {
+  .sources {
+    width: 80px;
+    font-size: 0.6em;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .source__item {
+    width: 40px;
+    padding: 0.5em 1em;
+  }
+
+  .search {
+    width: 20px;
+    font-size: 0.8em;
+  }
+}
+
+@media (max-height: 500px) {
+  .search {
+    font-size: 0.8em;
+  }
 }

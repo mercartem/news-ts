@@ -28,6 +28,7 @@ header h1 {
   display: flex;
   height: 75vh;
   padding: 0 30px;
+  font-size: 1em;
 }
 
 footer {
@@ -50,4 +51,14 @@ footer .copyright a:hover {
 }
 footer .copyright:before {
   content: '©';
+}
+
+@media (max-width: 640px) {
+  .main {
+    padding: 0 10px;
+  }
+
+  header h1 {
+    font-size: 35px;
+  }
 }
