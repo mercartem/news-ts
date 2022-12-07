@@ -5,7 +5,7 @@ export enum Endpoints {
 
 export type Options = { apiKey?: string; sources?: string };
 export type GetRespOptions = { endpoint: Endpoints; options?: Options };
-export type Callback = (() => void) | ((data: Data) => void);
+export type Callback = (() => void) | ((data: Readonly<Data>) => void);
 
 export interface Article {
   author: string;

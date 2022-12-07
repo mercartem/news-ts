@@ -35,6 +35,24 @@ class AppController extends AppLoader {
       target = target.parentNode as HTMLElement;
     }
   }
+
+  findByLetter() {
+    const btns = document.querySelectorAll<HTMLElement>('.search__item');
+    const links = document.querySelectorAll<HTMLElement>('.source__item-name');
+
+    for (let i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', () => {
+        const btn = btns[i].textContent as string;
+        for (let j = 0; j < links.length; j++) {
+          const link = links[j].textContent as string;
+          if (btn[0] === link[0].toUpperCase()) {
+            links[j].scrollIntoView({ block: 'start', behavior: 'smooth' });
+            break;
+          }
+        }
+      });
+    }
+  }
 }
 
 export default AppController;
