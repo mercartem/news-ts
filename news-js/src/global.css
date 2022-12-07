@@ -1,6 +1,7 @@
 * {
   margin: 0;
   list-style-type: none;
+  padding: 0;
 }
 
 body {
@@ -36,6 +37,7 @@ footer {
   justify-content: center;
 }
 footer .copyright {
+  margin: 0 15px;
   font-size: 14px;
   color: #333;
   text-align: center;

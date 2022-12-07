@@ -8,9 +8,11 @@
 }
 
 .search {
+  width: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   font-size: 1.3em;
   color: #70d6ff;
 }
