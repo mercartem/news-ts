@@ -2,8 +2,8 @@ import type { Options, GetRespOptions, Callback, Endpoints } from '../../types/i
 
 class Loader {
   private baseLink: string;
-  private options: Partial<Pick<Options, 'apiKey' | 'sources'>>;
-  constructor(baseLink: string, options: Partial<Pick<Options, 'apiKey' | 'sources'>>) {
+  private options: Pick<Options, 'apiKey'>;
+  constructor(baseLink: string, options: Pick<Options, 'apiKey'>) {
     this.baseLink = baseLink;
     this.options = options;
   }
@@ -27,7 +27,7 @@ class Loader {
     return res;
   }
 
-  protected makeUrl(options: Options, endpoint: string): string {
+  protected makeUrl(options: Partial<Options>, endpoint: string): string {
     const urlOptions: { [index: string]: string } = { ...this.options, ...options };
     let url = `${this.baseLink}${endpoint}?`;
 
@@ -42,7 +42,7 @@ class Loader {
     method: 'GET' | 'POST' | 'DELETE' | 'PUT',
     endpoint: Endpoints,
     callback: Callback,
-    options: Options = {}
+    options: Partial<Options> = {}
   ): void {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)

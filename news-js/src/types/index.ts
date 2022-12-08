@@ -3,8 +3,8 @@ export enum Endpoints {
   Sources = 'sources',
 }
 
-export type Options = { apiKey?: string; sources?: string };
-export type GetRespOptions = { endpoint: Endpoints; options?: Options };
+export type Options = { apiKey: string; sources: string };
+export type GetRespOptions = { endpoint: Endpoints; options?: Partial<Options> };
 export type Callback = (() => void) | ((data: Readonly<Data>) => void);
 
 export interface Article {
