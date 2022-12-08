@@ -1,9 +1,9 @@
-import type { Options, GetRespOptions, Callback } from '../../types/index';
+import type { Options, GetRespOptions, Callback, Endpoints } from '../../types/index';
 
 class Loader {
   private baseLink: string;
-  private options: Options;
-  constructor(baseLink: string, options: Options) {
+  private options: Partial<Pick<Options, 'apiKey' | 'sources'>>;
+  constructor(baseLink: string, options: Partial<Pick<Options, 'apiKey' | 'sources'>>) {
     this.baseLink = baseLink;
     this.options = options;
   }
@@ -40,7 +40,7 @@ class Loader {
 
   protected load(
     method: 'GET' | 'POST' | 'DELETE' | 'PUT',
-    endpoint: string,
+    endpoint: Endpoints,
     callback: Callback,
     options: Options = {}
   ): void {

@@ -37,8 +37,8 @@ class AppController extends AppLoader {
   }
 
   findByLetter() {
-    const btns = document.querySelectorAll<HTMLElement>('.search__item');
-    const links = document.querySelectorAll<HTMLElement>('.source__item-name');
+    const btns: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>('.search__item');
+    const links: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>('.source__item-name');
 
     for (let i = 0; i < btns.length; i++) {
       btns[i].addEventListener('click', () => {

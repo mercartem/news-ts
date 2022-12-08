@@ -13,7 +13,7 @@ class News {
       if (idx % 2) (newsClone.querySelector('.news__item') as HTMLElement).classList.add('alt');
 
       (newsClone.querySelector('.news__meta-photo') as HTMLElement).style.backgroundImage = `url(${
-        item.urlToImage || 'img/news_placeholder.jpg'
+        item.urlToImage || 'https://www.mirage-systems.de/fileadmin/user_upload/placeholder-news.jpg'
       })`;
       (newsClone.querySelector('.news__meta-author') as HTMLElement).textContent = item.author || item.source.name;
       (newsClone.querySelector('.news__meta-date') as HTMLElement).textContent = item.publishedAt
