@@ -1,4 +1,4 @@
-# News-API
+# [News API](https://rolling-scopes-school.github.io/mercartem-JSFE2022Q3/news-js/dist/)
 
 **News API** - это простой HTTP REST API для поиска и извлечения новостей со всего Интернета.
 
@@ -8,7 +8,7 @@
      - использование Object Types
      - использование Classes
      - использование Function
-   - ESLinter настроен на TypeScript, включено правило `no-explicit-any` и отсутствуют ошибки +10
+   - ESLinter настроен на TypeScript, включено правило `no-explicit-any` и отсутствуют ошибки
    - нигде не используется тип Any
    - В конфигурационном файле TypeScript стоят флаги `"noImplicitAny": true` и `"strict": true`
    - webpack настроен и работает с TypeScript
