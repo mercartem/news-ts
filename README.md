@@ -1,4 +1,4 @@
-# [News API](https://rolling-scopes-school.github.io/mercartem-JSFE2022Q3/news-js/dist/)
+# [News API](https://mercartem.github.io/news-ts/news-js/dist/)
 
 **News API** - это простой HTTP REST API для поиска и извлечения новостей со всего Интернета.
 
